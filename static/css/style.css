@@ -1,0 +1,238 @@
+@import url('https://fonts.cdnfonts.com/css/space-mono');
+
+body, html {
+    margin: auto;
+    background: #090d00;
+    padding: 0;
+    border: none;
+    font-family: 'Space Mono', sans-serif;
+}
+
+#bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#bg canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Navbar pc */
+#navbar_pc .navbar{
+    position: fixed;
+    left: 10px;
+    background-color: rgb(255, 255, 255, .4);
+    z-index: 10;
+    width: max-content;
+    border-radius: 20px;
+}
+
+#navbar_pc .navbar.top{
+    top: 10px;
+}
+
+#navbar_pc .navbar.bottom{
+    bottom: 10px;
+}
+
+#navbar_pc .navbar .link{
+    box-shadow: inset white 0 0 10px 0;
+    margin: 10px;
+    border-radius: 20px;
+    display: block;
+    color: rgb(0, 0, 0, .9);
+    text-decoration: none;
+    padding: 10px;
+    width:auto;
+    transition: .3s;
+}
+
+#navbar_pc .navbar .link:hover{
+    background-color: rgb(255, 255, 255, .4);
+}
+
+#navbar_pc .navbar .link .link_icon{
+    text-align: center;
+    width: 20px;
+}
+
+#navbar_pc .navbar .link .link_text{
+    display: none;
+}
+
+#navbar_pc .navbar:hover .link .link_text{
+    display: inline;
+}
+
+#navbar_pc .navbar .link.active{
+    background-color: rgb(255, 255, 255, .5);
+}
+
+/* Navbar phone */
+#navbar_phone .navbar{
+    transform: translateX(-150%);
+    top: 70px;
+    position: fixed;
+    left: 10px;
+    background-color: rgb(255, 255, 255, .4);
+    z-index: 10;
+    width: calc(100% - 20px);
+    height: calc(100% - 70px - 10px);
+    border-radius: 20px;
+    display: none;
+}
+
+#navbar_phone .navbar .bottom{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#navbar_phone .navbar_phone_button{
+    z-index: 10;
+    position: fixed;
+    background-color: rgb(255, 255, 255, .4);
+    border: none;
+    height: 50px;
+    width: 50px;
+    top: 10px;
+    left: 10px;
+    border-radius: 20px;
+    font-size: 25px;
+    display: none;
+}
+
+#navbar_phone .navbar_phone_enable{
+    animation: slide_to_right 1s ease-out;
+    animation-fill-mode: forwards;
+}
+
+#navbar_phone .navbar_phone_disable{
+    animation: slide_to_left 1s;
+    animation-fill-mode: forwards;
+}
+
+#navbar_phone .navbar .link{
+    box-shadow: inset white 0 0 10px 0;
+    margin: 10px;
+    border-radius: 20px;
+    display: block;
+    color: rgb(0, 0, 0, .9);
+    text-decoration: none;
+    padding: 10px;
+    width: auto;
+}
+
+#navbar_phone .navbar .link .link_icon{
+    text-align: center;
+    width: 20px;
+}
+
+#navbar_phone .navbar:hover .link .link_text{
+    display: inline;
+}
+
+#navbar_phone .navbar .link.active{
+    background-color: rgb(255, 255, 255, .5);
+}
+
+@keyframes slide_to_right {
+    0%{
+        transform: translateX(-150%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slide_to_left {
+    0%{
+        transform: translateX(0%);
+    }
+
+    100%{
+        transform: translateX(-150%);
+    }
+}
+
+/* Article */
+article{
+    position: absolute;
+    left: 80px;
+    top: 10px;
+    width: calc(100% - 80px - 10px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px){
+    #navbar_pc{
+        display: none;
+    }
+
+    #navbar_phone .navbar{
+        display: block;
+    }
+
+    #navbar_phone .navbar_phone_button{
+        display: block;
+    }
+
+    article{
+        left: 20px;
+        top: 70px;
+        width: calc(100% - 20px - 20px);
+    }
+}
