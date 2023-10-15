@@ -61,7 +61,7 @@ main{
     color: rgb(0, 0, 0, .9);
     text-decoration: none;
     padding: 10px;
-    width:auto;
+    width: auto;
     transition: .3s;
 }
 
@@ -174,6 +174,19 @@ main{
     }
 }
 
+/* Overlay image */
+#background_blurred{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    z-index: 9;
+    display: none;
+    transition: .3s;
+}
+
 /* Article */
 article{
     position: absolute;
@@ -182,15 +195,68 @@ article{
     width: calc(100% - 80px - 10px);
 }
 
+/* Main directories */
+#main_directories{
+    /* border: 1px solid black; */
+    padding: 20px;
+    max-width: calc(100% - 350px);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, .2);
+}
 
+#main_directories .main_dir{
+    display: inline-block;
+    padding: 10px;
+    width: max-content;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, .6);
+    transition: .5s;
+    margin: 10px 5px 10px 5px;
+}
 
+#main_directories .main_dir .main_dir_icon{
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50px;
+}
 
+#main_directories .main_dir .main_dir_title{
+    float: right;
+    display: inline;
+}
 
+#main_directories .main_dir .main_dir_weight{
+    display: inline;
+}
 
+#main_directories .main_dir hr{
+    width: 70%;
+    border: none;
+    border-radius: 100px;
+    transition: .5s;
+}
 
+#main_directories .main_dir:hover{
+    cursor: pointer;
+}
 
+#main_directories .main_dir:hover hr{
+    transform: translateY(5px);
+}
 
-
+/* Dashboard */
+#dashboard{
+    position: fixed;
+    right: 25px;
+    top: 10px;
+    bottom: 10px;
+    width: 250px;
+    /* height: calc(100% - 100px); */
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255,.2);
+}
 
 
 
@@ -235,4 +301,40 @@ article{
         top: 70px;
         width: calc(100% - 20px - 20px);
     }
+
+    #main_directories{
+        max-width: 100%;
+    }
+
+    #dashboard{
+        position: initial;
+        height: auto;
+        margin-top: 10px;
+        width: calc(100% - 40px);
+    }
+
+    #main_directories .main_dir{
+        width: calc(100% - 30px);
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255, .5);
+    border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(255, 255, 255, .7);
 }

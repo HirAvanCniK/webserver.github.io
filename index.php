@@ -40,8 +40,35 @@
                 </div>
             </nav>
         </div>
+        <div id="background_blurred"></div>
         <article>
-            <h1>Hello World!</h1>
+            <div id="main_directories">
+                <div class="main_dir" style="box-shadow: 0 0 10px 1px goldenrod;">
+                    <i class="main_dir_icon fa-solid fa-photo-film" style="color: goldenrod;"></i>
+                    <b>
+                        <i class="main_dir_title">Photos</i>
+                        <br><br>
+                        <i class="main_dir_elements">16 Elements</i>
+                        •
+                        <i class="main_dir_weight">2GB</i>
+                    </b>
+                    <hr style="border-top: 2px solid goldenrod;">
+                </div>
+                <div class="main_dir" style="box-shadow: 0 0 10px 1px springgreen;">
+                    <i class="main_dir_icon fa-solid fa-gamepad" style="color: springgreen;"></i>
+                    <b>
+                        <i class="main_dir_title">Games</i>
+                        <br><br>
+                        <i class="main_dir_elements">5 Elements</i>
+                        •
+                        <i class="main_dir_weight">11GB</i>
+                    </b>
+                    <hr style="border-top: 2px solid springgreen;">
+                </div>
+            </div>
+            <div id="dashboard">
+                
+            </div>
         </article>
     </main>
     <script type="text/javascript" src="static/js/script.js"></script>
