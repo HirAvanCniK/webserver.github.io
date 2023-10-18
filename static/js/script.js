@@ -1,3 +1,4 @@
+// Background animated
 (function ($) {
     var canvas = $('#bg').children('canvas'),
         background = canvas[0],
@@ -161,15 +162,16 @@
     }
 })(jQuery);
 
+// Phone navbar manager
 function toggle_navbar_phone(){
     var navbar_phone = $('#navbar_phone').children('.navbar');
-    var bb = document.getElementById('background_blurred');
+    var bb = $('#background_blurred.all');
     navbar_phone.toggleClass('navbar_phone_enable');
     navbar_phone.toggleClass('navbar_phone_disable');
     if(navbar_phone.hasClass('navbar_phone_disable')){
-        bb.style.display = 'none';
+        bb.hide();
     }else{
-        bb.style.display = 'block';
+        bb.show();
     }
     var button = $('#navbar_phone').children('.navbar_phone_button');
     button.toggleClass('fa-bars');
@@ -179,12 +181,21 @@ function toggle_navbar_phone(){
 /* Background blurred */
 var navbar_phone = document.getElementById('navbar_phone').querySelector('.navbar');
 var navbar_pc = document.getElementById('navbar_pc');
-var bb = document.getElementById('background_blurred');
+var bb = $('#background_blurred.all');
 
 navbar_pc.addEventListener('mouseover', () => {
-    bb.style.display = 'block';
+    bb.show();
 })
 
 navbar_pc.addEventListener('mouseout', () => {
-    bb.style.display = 'none';
+    bb.hide();
 })
+
+// Add dir container
+function add_main_dir(){
+    var bb = $('#background_blurred.add_main_dir');
+    var amd_container = $('#add_main_dir');
+    amd_container.toggleClass('hidden');
+    bb.toggleClass('hidden');
+    amd_container.toggleClass('show_add_main_dir');
+}

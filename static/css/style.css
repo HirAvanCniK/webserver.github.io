@@ -17,7 +17,7 @@ body, html {
     z-index: -1;
 }
 
-#bg canvas {
+#bg canvas.bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -40,9 +40,10 @@ main{
     position: fixed;
     left: 10px;
     background-color: rgb(255, 255, 255, .4);
-    z-index: 10;
+    z-index: 11;
     width: max-content;
     border-radius: 20px;
+    backdrop-filter: blur(5px);
 }
 
 #navbar_pc .navbar.top{
@@ -93,11 +94,12 @@ main{
     position: fixed;
     left: 10px;
     background-color: rgb(255, 255, 255, .4);
-    z-index: 10;
+    z-index: 11;
     width: calc(100% - 20px);
     height: calc(100% - 70px - 10px);
     border-radius: 20px;
     display: none;
+    backdrop-filter: blur(5px);
 }
 
 #navbar_phone .navbar .bottom{
@@ -182,9 +184,15 @@ main{
     width: 100%;
     height: 100%;
     backdrop-filter: blur(5px);
-    z-index: 9;
-    display: none;
     transition: .3s;
+}
+
+#background_blurred.all{
+    z-index: 10;
+}
+
+#background_blurred.add_main_dir{
+    z-index: 8;
 }
 
 /* Article */
@@ -195,9 +203,17 @@ article{
     width: calc(100% - 80px - 10px);
 }
 
+.title{
+    text-decoration: underline;
+    margin: 0;
+    margin-bottom: 5px;
+    color: white;
+}
+
 /* Main directories */
 #main_directories{
-    /* border: 1px solid black; */
+    /* box-shadow: 0 0 50px 1px rgb(25, 25, 25); */
+    backdrop-filter: blur(10px);
     padding: 20px;
     max-width: calc(100% - 350px);
     border-radius: 20px;
@@ -205,6 +221,7 @@ article{
 }
 
 #main_directories .main_dir{
+    vertical-align: middle;
     display: inline-block;
     padding: 10px;
     width: max-content;
@@ -245,8 +262,23 @@ article{
     transform: translateY(5px);
 }
 
+.fa-plus{
+    transition: .5s;
+    font-size: 30px;
+    width:30px;
+    height:30px;
+    text-align:center;
+}
+
+.fa-plus:hover{
+    padding: 5px;
+    transform: rotate(180deg);
+}
+
 /* Dashboard */
 #dashboard{
+    /* box-shadow: 0 0 50px 10px rgb(25, 25, 25); */
+    backdrop-filter: blur(10px);
     position: fixed;
     right: 25px;
     top: 10px;
@@ -256,13 +288,81 @@ article{
     padding: 20px;
     border-radius: 20px;
     background-color: rgb(255, 255, 255,.2);
+    text-align: center;
 }
 
+#add_main_dir{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 80%;
+    z-index: 9;
+    background-color: rgb(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    /* padding: 50px;
+    padding-top: 0; */
+    text-align: center;
+}
 
+.fa-circle-xmark{
+    font-size: 30px;
+    float: right;
+    background-color: white;
+    border-radius: 100px;
+    transition: .2s;
+}
 
+.fa-circle-xmark:hover{
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
 
+.hidden{
+    display: none;
+}
 
+.show_add_main_dir{
+    animation: slide_to_up 1s ease-out;
+    animation-fill-mode: forwards;
+}
 
+@keyframes slide_to_up {
+    0%{
+        transform: translate(-50%, 150%);
+    }
+
+    100%{
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Color picker */
+#colorpicker{
+    display: inline-block;
+    background-color: rgb(255, 255, 255, .8);
+    width: min-content;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#colorpicker input{
+    outline: none;
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    margin-top: 5px;
+    border: none;
+    box-shadow: 0 0 5px 1px black;
+}
+
+#canvascolorpicker{
+    border-radius: 10px;
+    width: 225;
+}
 
 
 
@@ -303,6 +403,7 @@ article{
     }
 
     #main_directories{
+        text-align: center;
         max-width: 100%;
     }
 
@@ -315,6 +416,20 @@ article{
 
     #main_directories .main_dir{
         width: calc(100% - 30px);
+    }
+
+    #add_main_dir{
+        width: 80%;
+        height: 70%;
+    }
+
+    .title{
+        font-size: 25px;
+    }
+
+    #canvascolorpicker{
+        border-radius: 10px;
+        width: 200px;
     }
 }
 
