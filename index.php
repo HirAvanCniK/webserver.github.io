@@ -17,21 +17,38 @@
     <main>
         <div id="background_blurred" class="all hidden"></div>
         <div id="background_blurred" class="add_main_dir hidden"></div>
-        <div id="add_main_dir" class="hidden">
-            <i class="fa-solid fa-circle-xmark" onclick="add_main_dir()"></i>
+        <form method="POST" id="add_main_dir" class="hidden">
+            <i class="fa-solid fa-circle-xmark close" onclick="add_main_dir()"></i>
             <br><br>
             <h1 class="title">Add Main Dir</h1>
+            <br>
+            <label for="" class="add_main_dir_label">Choose a color</label>
+            <br><br>
             <div id="colorpicker">
                 <img style="display:none;" id="colorpickerimage" src="static/img/ColorPicker.jpeg">
                 <canvas id="canvascolorpicker" width="225"></canvas>
                 <label for="rgb">RGB</label>
-                <input type="text" name="rgbcolor" id="rgbinput" oninput="changeRGBcolor()">
+                <input type="text" name="new_main_dir_rgbcolor" id="rgbinput" oninput="changeRGBcolor()">
                 <br>
                 <label for="hex">HEX</label>
-                <input type="text" name="hexcolor" id="hexinput" oninput="changeHEXcolor()">
+                <input type="text" name="new_main_dir_hexcolor" id="hexinput" oninput="changeHEXcolor()">
             </div>
-            <label for=""></label>
-        </div>
+            <br><br>
+            <label for="" class="add_main_dir_label">Choose an icon</label>
+            <br><br>
+            <div id="select_icon">
+                <input type="text" class="hidden" id="icon" name="new_main_dir_icon">
+                <b class="visible_icon" onclick="toggle_select_menu_icon()">Select Icon</b>
+                <br>
+                <ul id="add_main_dir_select_icon" style="display: none"></ul>
+            </div>
+            <br><br>
+            <label for="" class="add_main_dir_label">Choose a name</label>
+            <br><br>
+            <input type="text" name="new_main_dir_name" id="main_dir_name">
+            <br><br>
+            <button type="submit" id="btn-create-main-dir">Create a Main Directory</button>
+        </form>
         <div id="navbar_pc">
             <nav class="navbar top">
                 <a href="home.php" class="link active"><i class="link_icon fa-solid fa-house-user"></i> <b class="link_text">Home</b></a>
@@ -83,7 +100,7 @@
                     <hr style="border-top: 2px solid springgreen;">
                 </div>
                 <div class="main_dir" style="box-shadow: 0 0 10px 1px white;" onclick="add_main_dir()">
-                    <i class="fa-solid fa-plus" style="color:white;"></i>
+                    <i class="fa-solid fa-plus add-icon" style="color:white;"></i>
                 </div>
             </div>
             <div id="dashboard">
@@ -91,6 +108,7 @@
             </div>
         </article>
     </main>
+    <script type="text/javascript" src="static/js/background.js"></script>
     <script type="text/javascript" src="static/js/script.js"></script>
     <script type="text/javascript" src="static/js/color-picker.js"></script>
 </body>
