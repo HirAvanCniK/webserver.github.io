@@ -160,3 +160,35 @@
         });
     }
 })(jQuery);
+
+
+// Phone navbar manager
+function toggle_navbar_phone() {
+    var navbar_phone = $("#navbar_phone").children(".navbar");
+    var bb = $("#background_blurred.all");
+    navbar_phone.toggleClass("navbar_phone_enable");
+    navbar_phone.toggleClass("navbar_phone_disable");
+    if (navbar_phone.hasClass("navbar_phone_disable")) {
+        bb.hide();
+    } else {
+        bb.show();
+    }
+    var button = $("#navbar_phone").children(".navbar_phone_button");
+    button.toggleClass("fa-bars");
+    button.toggleClass("fa-xmark");
+}
+
+/* Background blurred */
+var navbar_phone = document
+    .getElementById("navbar_phone")
+    .querySelector(".navbar");
+var navbar_pc = document.getElementById("navbar_pc");
+var bb = $("#background_blurred.all");
+
+navbar_pc.addEventListener("mouseover", () => {
+    bb.show();
+});
+
+navbar_pc.addEventListener("mouseout", () => {
+    bb.hide(); 
+});

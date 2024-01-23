@@ -178,7 +178,7 @@ main{
 
 /* Overlay image */
 #background_blurred{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -201,6 +201,7 @@ article{
     left: 80px;
     top: 10px;
     width: calc(100% - 80px - 10px);
+    height: calc(100% - 60px);
 }
 
 .title{
@@ -209,6 +210,8 @@ article{
     margin-bottom: 5px;
     color: white;
 }
+
+/* ==================== Home ==================== */
 
 /* Main directories */
 #main_directories{
@@ -289,6 +292,7 @@ article{
     border-radius: 20px;
     background-color: rgb(255, 255, 255,.2);
     text-align: center;
+    overflow-y: auto;
 }
 
 #add_main_dir{
@@ -309,7 +313,8 @@ article{
 
 .fa-circle-xmark.close{
     position: sticky;
-    top: 0;
+    top: 1px;
+    right: 1px;
     font-size: 30px;
     float: right;
     background-color: white;
@@ -399,6 +404,22 @@ article{
     cursor: pointer;
 }
 
+#add_main_dir_select_icon .search_icon{
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    width: 85%;
+    padding: 5px;
+    padding-left: 35px;
+    transition: .3s;
+    margin-bottom: 5px;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+#add_main_dir_select_icon .search_icon:focus{
+    box-shadow: 0 0 10px 5px white;
+}
+
 #select_icon .visible_icon{
     padding: 10px 30px 10px 30px;
     border-radius: 50px;
@@ -410,6 +431,10 @@ article{
 #select_icon .visible_icon:hover{
     cursor: pointer;
     background-color: rgb(255, 255, 255, .8);
+}
+
+#select_icon ul{
+    list-style-type: none;
 }
 
 #main_dir_name{
@@ -437,35 +462,232 @@ article{
     box-shadow: 1px 1px 10px 1px white;
 }
 
+/* Services status */
+#services{
+    /* box-shadow: 0 0 50px 1px rgb(25, 25, 25); */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    max-width: calc(100% - 350px);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, .2);
+    margin-top: 10px;
+}
+
+.service{
+    background-color: rgb(255, 255, 255, .6);
+    width: max-content;
+    padding: 0 10px 0 10px;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.service ul{
+    list-style-type: none;
+    transform: translate(-20px, -10px);
+}
+
+.service ul li{
+    transition: .2s;
+}
+
+.service ul li:hover{
+    transform: translateX(10px);
+    cursor: pointer;
+}
+
+.status_on_off{
+    position: relative;
+    float: right;
+    /* left: 10px; */
+    top: 20px;
+    right: 10px;
+}
+
+
+/* Dashboard */
+/* Memory Graph */
+#memory{
+    color: white;
+}
+
+#memory svg {
+    height: 250px;
+    transform: rotate(90deg);
+    width: 250px;
+}
+
+#memory svg .progress-bar__background {
+    fill: none;
+    stroke: #e2eff0;
+    stroke-width: 1.8;
+}
+
+#memory svg .progress-bar__progress {
+    fill: none;
+    stroke-dasharray: 100 100;
+    stroke-dashoffset: 100;
+    stroke-linecap: round;
+    stroke-width: 1.9;
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+#memory .memory_occuped{
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, -20%);
+}
+
+.db_element{
+    color: white;
+    /* transform: translateY(-110%); */
+    text-align: left;
+}
+
+.db_element h2{
+    margin: auto;
+}
+
+.db_element ul{
+    list-style-type: none;
+    transform: translate(-10px, -10px);
+}
+
+.db_element ul li{
+    transition: .2s;
+}
+
+.db_element ul li:hover{
+    cursor: pointer;
+    transform: translateX(10px);
+}
 
 
 
 
 
+/* ==================== Explorer ==================== */
+#explorer{
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    max-width: calc(100% - 650px);
+    transform: translateX(302.5px);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, .2);
+    height: 100%;
+}
+
+#explorer .pathInput{
+    font-family: 'Space Mono', sans-serif;
+    vertical-align: middle;
+    transition: .3s;
+    outline: none;
+    border: none;
+    font-size: 15.5px;
+    padding: 5px;
+    padding-left: 45px;
+    width: calc(100% - 93px);
+    background: rgb(255, 255, 255, .5) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-slash' viewBox='0 0 16 16'%3E%3Cpath d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+#explorer .findInput{
+    font-family: 'Space Mono', sans-serif;
+    vertical-align: middle;
+    transition: .3s;
+    outline: none;
+    border: none;
+    font-size: 15.5px;
+    padding: 5px;
+    padding-left: 45px;
+    width: calc(100% - 93px);
+    background: rgb(255, 255, 255, .5) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+.pathInputDiv{
+    height: 33px;
+    width: calc(100% - 360px);
+    display: inline-block;
+    border-radius: 20px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.findInputDiv{
+    height: 33px;
+    width: 350px;
+    display: inline-block;
+    border-radius: 20px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+#explorer .btn_submit_path{
+    vertical-align: middle;
+    width: 33px;
+    height: 100%;
+    border-radius: 0 20px 20px 0;
+    transform: translateX(-10px);
+    border: none;
+    background-color: rgb(255, 255, 255, .5);
+    transition: .3s;
+}
+
+#explorer .btn_submit_path:hover{
+    cursor: pointer;
+    background-color: rgb(255, 255, 255, .7);
+}
+
+#favorites_bar{
+    backdrop-filter: blur(10px);
+    position: fixed;
+    overflow: auto;
+    width: 250px;
+    background-color: rgb(255, 255, 255, .2);
+    padding: 20px;
+    border-radius: 20px;
+    top: 10px;
+    bottom: 10px;
+}
 
 
 
 
 
+/* ==================== Terminal ==================== */
+#terminal{
+    position: fixed;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    width: calc(100% - 130px);
+    border-radius: 20px;
+    background-color: black;
+    bottom: 10px;
+    top: 120px;
+    /* overflow-y: auto;
+    overflow-x: auto; */
+}
 
+.terminalInstance{
+    margin: 10px;
+    text-align: center;
+}
 
+.btnInstance{
+    font-family: 'Space Mono', sans-serif;
+    margin: 0;
+    padding: 10px 20px 10px 20px;
+    border-radius: 50px;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255, .2);
+    border: none;
+    transition: .2s;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.btnInstance:hover{
+    cursor: pointer;
+}
 
 
 
@@ -554,6 +776,38 @@ article{
 
     #main_dir_name{
         width: 70%;
+    }
+
+    #services{
+        text-align: center;
+        max-width: 100%;
+    }
+
+    #services .service{
+        text-align: left;
+        width: calc(100% - 40px);
+    }
+
+    #terminal{
+        position: initial;
+        height: calc(100% - 150px);
+        margin-top: 10px;
+        width: calc(100% - 40px);
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 618px){
+    #main_directories .main_dir{
+        width: max-content;
+    }
+    
+    .db_element{
+        vertical-align: top;
+        display: inline-block;
+    }
+
+    #services .service{
+        width: max-content;
     }
 }
 
