@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 var os = require('os');
 var pty = require('node-pty');
 
-const wss = new WebSocket.Server({ port: 50107 })
+const wss = new WebSocket.Server({ port: 6080 })
 
 console.log("Socket is up and running...")
 
@@ -12,6 +12,7 @@ var ptyProcess = pty.spawn(shell, [], {
     name: 'xterm-color',
     cwd: process.env.HOME,
     env: process.env,
+    cols: 10000
 });
 
 wss.on('connection', ws => {

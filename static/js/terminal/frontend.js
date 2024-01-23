@@ -1,32 +1,23 @@
 
-const socket = new WebSocket("ws://localhost:50107");
+const socket = new WebSocket("ws://localhost:6080");
 socket.onmessage = (event) => {
     term.write(event.data);
 }
 
 var term = new window.Terminal({
     cursorBlink: true,
-    cursorStyle: 'bar',
-    rows: 30
+    cursorStyle: 'bar'
 });
 
 var terminal = document.getElementById('terminal');
 
+const fitAddon = new window.FitAddon.FitAddon();
+term.loadAddon(fitAddon);
 term.open(terminal);
+fitAddon.fit();
 
-const resize_ob = new ResizeObserver(function(entries) {
-	// since we are observing only a single element, so we access the first element in entries array
-	let rect = entries[0].contentRect;
-
-	// current width & height
-	let width = rect.width;
-	let height = rect.height;
-
-    // term.cols = height/10;
-    // term.rows = width/10;
-
-    term.resize(width/10, height/10);
-    term.refresh();
+const resize_ob = new ResizeObserver(function() {
+    fitAddon.fit();
 });
 
 resize_ob.observe(terminal);

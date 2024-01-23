@@ -1,8 +1,6 @@
 // Instance manager
 var Istatus = document.getElementById("instanceStatus").className;
 
-console.log(Istatus);
-
 var btn = document.getElementsByClassName("btnInstance")[0];
 
 var btn_icon = document.createElement("i");
