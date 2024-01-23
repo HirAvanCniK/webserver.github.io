@@ -3,6 +3,4 @@
 rm -rf node_modules
 rm package-lock.json
 
-npm install
-
-php -S localhost:8095
+npm install && php -S localhost:8095
