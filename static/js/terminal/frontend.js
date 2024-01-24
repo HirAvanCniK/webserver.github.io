@@ -1,5 +1,7 @@
 
-const socket = new WebSocket("ws://localhost:6080");
+const SERVER = "localhost"
+const PORT = 6080
+const socket = new WebSocket(`ws://${SERVER}:${PORT}`);
 socket.onmessage = (event) => {
     term.write(event.data);
 }

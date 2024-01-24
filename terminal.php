@@ -67,11 +67,19 @@
                 <button type="submit" class="btnInstance" name="instance"><i class="fa-solid " aria-hidden="true"></i></button>
                 <div id="terminalmsg"></div>
                 <?php
+                    function isWindows() {
+                        $os = strtoupper(PHP_OS);
+                        return substr($os, 0, 3) == "WIN";
+                    }
                     if(isset($_POST['instance'])){
                         if(strcmp('', file_get_contents('terminalInstance.txt')) == 0){ // L'instanza del terminale non è aperta
                             $backend_path = './static/js/terminal/backend.js';
-                            exec("node $backend_path > /dev/null 2>&1 & echo $!", $output, $exit_code);
-                            $pid = !empty($output) ? (int)$output[0] : 0;
+                            if(isWindows()){
+                                exec("powershell -Command \"Start-Process -FilePath \"node\" -ArgumentList \".\static\js\\terminal\backend.js\" -PassThru | Select-Object -ExpandProperty Id\"", $pid, $exit_code);
+                            }else{
+                                exec("node $backend_path > /dev/null 2>&1 & echo $!", $output, $exit_code);
+                                $pid = !empty($output) ? (int)$output[0] : 0;
+                            }
                             if($exit_code != 0){
                                 file_put_contents('terminalInstance.txt', 'error');
                             }else{
@@ -83,7 +91,11 @@
                             file_put_contents('terminalInstance.txt', '');
                         }else{
                             $pid = file_get_contents('terminalInstance.txt');
-                            shell_exec("kill -9 $pid");
+                            if(isWindows()){
+                                shell_exec("taskkill /f /pid $pid");
+                            }else{
+                                shell_exec("kill -9 $pid");
+                            }
                             file_put_contents('terminalInstance.txt', "");
                             sleep(1);
                             header("Refresh:0");
