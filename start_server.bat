@@ -5,4 +5,4 @@ del package-lock.json
 del terminalInstance.txt
 call > terminalInstance.txt
 
-npm install && php -S localhost:8095
+npm install && php -S localhost:8075

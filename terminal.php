@@ -75,7 +75,7 @@
                         if(strcmp('', file_get_contents('terminalInstance.txt')) == 0){ // L'instanza del terminale non è aperta
                             $backend_path = './static/js/terminal/backend.js';
                             if(isWindows()){
-                                exec("powershell -Command \"Start-Process -FilePath \"node\" -ArgumentList \".\static\js\\terminal\backend.js\" -PassThru | Select-Object -ExpandProperty Id\"", $pid, $exit_code);
+                                exec("powershell -Command \"Start-Process -FilePath \"node\" -ArgumentList \"$backend_path\" -PassThru | Select-Object -ExpandProperty Id\"", $pid, $exit_code);
                             }else{
                                 exec("node $backend_path > /dev/null 2>&1 & echo $!", $output, $exit_code);
                                 $pid = !empty($output) ? (int)$output[0] : 0;
@@ -85,7 +85,7 @@
                             }else{
                                 file_put_contents('terminalInstance.txt', $pid);
                             }
-                            sleep(5);
+                            sleep(3);
                             header("Refresh:0");
                         }elseif(strcmp('error', file_get_contents('terminalInstance.txt')) == 0){
                             file_put_contents('terminalInstance.txt', '');
