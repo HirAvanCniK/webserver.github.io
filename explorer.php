@@ -44,24 +44,57 @@
         <article>
             <div id="favorites_bar">
                 <h1 class="title" style="text-align:center;">Favorites</h1>
+                <div class="folder-tree-wrapper">
+                    <ul class="folder-tree">
+                        <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (0)'">New Folder (0)</b>
+                            <div class="arrow"><i class="fa fa-angle-down"></i></div>
+                            
+                            <ul>
+                                <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (0)/New Folder (0)'">New Folder (0)</b></li>
+                                <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (0)/New Folder (1)'">New Folder (1)</b>
+                                    <div class="arrow"><i class="fa fa-angle-down"></i></div>
+                                    <ul>
+                                    
+                                        <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (0)/New Folder (1)/New Folder (2)'">New Folder (2)</b></li>
+                                        <li><i class="fa fa-file"></i><b class="name" onclick="location.href='/editor?file=New Folder (0)/New Folder (1)/File'">File</b></li>
+                                    
+                                    </ul>
+                                
+                                </li>
+                            </ul>
+                            
+                        </li>
+                        <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (1)'">New Folder (1)</b></li>
+                        <li><i class="fa fa-folder"></i><b class="name" onclick="location.href='?path=/New Folder (2)'">New Folder (2)</b></li>
+                        <li><i class="fa fa-file"></i><b class="name" onclick="location.href='/editor?file=File'">File</b></li>
+                    </ul>
+                </div>
             </div>
             <div id="explorer">
-                <form method="get">
+                <form method="get" id="searchbars">
                     <div class="pathInputDiv">
-                        <input type="text" id="path" class="pathInput" name="path" placeholder="Path" autocomplete="off">
-                        <button type="submit" class="btn_submit_path"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" name="path" id="path">
+                        <input type="submit" class="fa-solid" value="">
                     </div>
                     <div class="findInputDiv">
-                        <input type="text" class="findInput" name="find" placeholder="Search in current directory" autocomplete="off">
-                        <button type="submit" class="btn_submit_path"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" name="find" placeholder="Search in current directory" id="find">
+                        <input type="submit" class="fa-solid" value="">
                     </div>
                 </form>
             </div>
-            <div id="dashboard">
+            <div id="properties">
                 <h1 class="title">Properties</h1>
             </div>
         </article>
     </main>
+    <script>
+        $(function() {
+            $('.folder-tree li').click(function(evt) {
+                evt.stopPropagation();
+                $(this).toggleClass('expanded');
+            });
+        });
+    </script>
     <script type="text/javascript" src="static/js/background.js"></script>
     <script type="text/javascript" src="static/js/script2.js"></script>
 </body>

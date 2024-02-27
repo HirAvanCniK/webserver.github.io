@@ -42,9 +42,7 @@
             </nav>
         </div>
         <article>
-            <div id="terminal">
-                <h1>ciao</h1>
-            </div>
+            
         </article>
     </main>
     <script type="text/javascript" src="static/js/background.js"></script>
