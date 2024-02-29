@@ -309,7 +309,7 @@ article {
     border-radius: 20px;
     background-color: rgb(255, 255, 255, .2);
     text-align: center;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 #add_main_dir {
@@ -633,10 +633,12 @@ article {
 }
 
 #searchbars .pathInputDiv input[type="text"] {
+    font-family: 'Courier New', Courier, monospace;
     width: 90%;
 }
 
 #searchbars .findInputDiv input[type="text"] {
+    font-family: 'Courier New', Courier, monospace;
     width: 90%;
 }
 
@@ -678,13 +680,13 @@ article {
 
 .folder-tree li:hover {}
 
-.folder-tree li i.fa-folder {
+article .fa-folder {
     width: 15px;
     color: rgb(242, 176, 53);
     text-align: center;
 }
 
-.folder-tree li i.fa-file {
+article .fa-file, article .fa-file-text {
     width: 15px;
     color: rgb(255, 240, 212);
     text-align: center;
@@ -899,6 +901,11 @@ article {
     #searchbars .findInputDiv {
         width: 100%;
     }
+
+    #explorer .filesDiv{
+        max-height: calc(100% - 100px);
+    }
+
 }
 
 @media screen and (max-width: 768px) and (min-width: 618px) {
@@ -930,6 +937,7 @@ article {
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 /* Track */
@@ -946,4 +954,86 @@ article {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(255, 255, 255, .7);
+}
+
+#explorer #mytable{
+    color: white;
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+}
+
+#explorer #mytable tr{
+    border-radius: 50px;
+}
+
+#explorer #mytable thead tr th:hover{
+    background-color: rgba(255, 255, 255, .5);
+}
+
+#explorer #mytable thead{
+    border-bottom: 10px solid transparent;
+}
+
+#explorer #mytable tbody tr:hover{
+    background-color: rgba(255, 255, 255, .5);
+    cursor: context-menu;
+}
+
+#explorer #mytable tbody tr td:nth-child(1){
+    border-radius: 5px 0 0 5px;
+}
+
+#explorer #mytable tbody tr td:nth-child(2){
+}
+
+#explorer #mytable tbody tr td:nth-child(3){
+}
+
+#explorer #mytable tbody tr td:nth-child(4){
+    border-radius: 0 5px 5px 0;
+}
+
+#explorer #mytable thead tr th{
+    border-radius: 5px;
+    padding-left: 5px;
+    border-right: 2px solid rgba(255, 255, 255, .6);
+}
+
+#explorer #mytable tbody tr td{
+    padding-left: 10px;
+}
+
+#explorer #mytable thead tr th{
+    text-align: left;
+}
+
+#explorer .filesDiv{
+    position: relative;
+    height: calc(100% - 60px);
+    overflow: auto;
+}
+
+#explorer #mytable tbody tr.selected{
+    background-color: rgba(255, 255, 255, .4);
+}
+
+#properties #mytable2{
+    color: white;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#properties #mytable2 tr{
+    text-align: left;
+}
+
+#properties #mytable2 tr th{
+    padding: 10px;
+}
+
+#properties .filesDiv{
+    position: relative;
+    height: calc(100% - 30px);
+    overflow: auto;
 }

@@ -22,10 +22,10 @@
                 <a href="explorer.php" class="link"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
-                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
+                <a href="editor.php" class="link active"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
             </nav>
             <nav class="navbar bottom">
-                <a href="settings.php" class="link active"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
+                <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
                 <a href="logout.php" class="link"><i class="link_icon fa-solid fa-right-from-bracket"></i> <b class="link_text">Logout</b></a>
             </nav>
         </div>
@@ -36,9 +36,9 @@
                 <a href="explorer.php" class="link"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
-                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
+                <a href="editor.php" class="link active"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
                 <div class="bottom">
-                    <a href="settings.php" class="link active"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
+                    <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
                     <a href="logout.php" class="link"><i class="link_icon fa-solid fa-right-from-bracket"></i> <b class="link_text">Logout</b></a>
                 </div>
             </nav>

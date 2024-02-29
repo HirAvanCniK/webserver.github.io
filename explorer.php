@@ -22,6 +22,7 @@
                 <a href="explorer.php" class="link active"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
+                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
             </nav>
             <nav class="navbar bottom">
                 <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
@@ -35,6 +36,7 @@
                 <a href="explorer.php" class="link active"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
+                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
                 <div class="bottom">
                     <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
                     <a href="logout.php" class="link"><i class="link_icon fa-solid fa-right-from-bracket"></i> <b class="link_text">Logout</b></a>
@@ -81,9 +83,46 @@
                         <input type="submit" class="fa-solid" value="">
                     </div>
                 </form>
+                <br>
+                <div class="filesDiv">
+                    <table id="mytable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Last edit <i class="fa-solid"></i></th>
+                                <th>Type</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr></tr>
+                            <tr>
+                                <td><i class="fa-solid fa-folder"></i> static</td>
+                                <td>18/10/2024 08:37</td>
+                                <td>Folder</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa-solid fa-file-text"></i> docker-compose.yml</td>
+                                <td>23/01/2024 10:32</td>
+                                <td>Yaml</td>
+                                <td>1 KB</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa-solid fa-file-text"></i> file.txt</td>
+                                <td>12/02/2024 15:45</td>
+                                <td>Text</td>
+                                <td>500 B</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div id="properties">
                 <h1 class="title">Properties</h1>
+                <div class="filesDiv">
+                    <table id="mytable2"></table>
+                </div>
             </div>
         </article>
     </main>

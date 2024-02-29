@@ -59,6 +59,7 @@
                 <a href="explorer.php" class="link"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
+                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
             </nav>
             <nav class="navbar bottom">
                 <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
@@ -72,6 +73,7 @@
                 <a href="explorer.php" class="link"><i class="link_icon fa-solid fa-folder"></i> <b class="link_text">Explorer</b></a>
                 <a href="upload.php" class="link"><i class="link_icon fa-solid fa-file-arrow-up"></i> <b class="link_text">Upload files</b></a>
                 <a href="terminal.php" class="link"><i class="link_icon fa-solid fa-terminal"></i> <b class="link_text">Terminal</b></a>
+                <a href="editor.php" class="link"><i class="fa-solid fa-file-pen"></i> <b class="link_text">Editor</b></a>
                 <div class="bottom">
                     <a href="settings.php" class="link"><i class="link_icon fa-solid fa-gear"></i> <b class="link_text">Settings</b></a>
                     <a href="logout.php" class="link"><i class="link_icon fa-solid fa-right-from-bracket"></i> <b class="link_text">Logout</b></a>
@@ -168,5 +170,29 @@
     <script type="text/javascript" src="static/js/background.js"></script>
     <script type="text/javascript" src="static/js/script1.js"></script>
     <script type="text/javascript" src="static/js/color-picker.js"></script>
+    <script>
+        $(function() {
+            var selectmenu = document.getElementById("add_main_dir_select_icon");
+            fetch("all-icons.php")
+                .then((response) => response.text())
+                .then((content) => {
+                    const icons = content.split("<br>");
+                    icons.pop();
+                    icons.forEach((icon) => {
+                        var option = document.createElement("li");
+                        option.className = "select_icon";
+                        var ic = document.createElement("i");
+                        ic.classList.add("fa-solid");
+                        var icon_name = icon.split("/")[icon.split("/").length - 1].split(".")[0];
+                        ic.classList.add("fa-"+icon_name);
+                        option.appendChild(ic);
+                        var span = document.createElement("span");
+                        span.textContent = stringTransform(icon_name);
+                        option.appendChild(span);
+                        selectmenu.appendChild(option);
+                    });
+                });
+        });
+    </script>
 </body>
 </html>

@@ -28,27 +28,6 @@ function stringTransform(inputString) {
     return result;
 }
 
-var selectmenu = document.getElementById("add_main_dir_select_icon");
-fetch("all-icons.php")
-    .then((response) => response.text())
-    .then((content) => {
-        const icons = content.split("<br>");
-        icons.pop();
-        icons.forEach((icon) => {
-            var option = document.createElement("li");
-            option.className = "select_icon";
-            var ic = document.createElement("i");
-            ic.classList.add("fa-solid");
-            var icon_name = icon.split("/")[icon.split("/").length - 1].split(".")[0];
-            ic.classList.add("fa-"+icon_name);
-            option.appendChild(ic);
-            var span = document.createElement("span");
-            span.textContent = stringTransform(icon_name);
-            option.appendChild(span);
-            selectmenu.appendChild(option);
-        });
-    });
-
 // Toggle Select Icon Menu
 function toggle_select_menu_icon(){
     var menu = document.getElementById('add_main_dir_select_icon');
@@ -79,7 +58,7 @@ lista.addEventListener('click', function (event){
         destination_element.textContent = "";
         destination_element.appendChild(newIcon);
     }
-})
+});
 
 function search_icon(){
     var search_bar = document.getElementsByClassName('search_icon')[0];
