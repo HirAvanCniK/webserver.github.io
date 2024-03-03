@@ -1,6 +1,6 @@
 
-const SERVER = "localhost"
-const PORT = 6080
+const SERVER = "0.tcp.eu.ngrok.io";
+const PORT = 18213;
 const socket = new WebSocket(`ws://${SERVER}:${PORT}`);
 socket.onmessage = (event) => {
     term.write(event.data);

@@ -1,6 +1,6 @@
 // Add dir container
 function add_main_dir() {
-    var bb = $("#background_blurred.add_main_dir");
+    var bb = $("#background_blurred.secondary");
     var amd_container = $("#add_main_dir");
     amd_container.toggleClass("hidden");
     bb.toggleClass("hidden");

@@ -6,6 +6,6 @@
     <title>File informations</title>
 </head>
 <body>
-    <pre id="response">{"size": 104, "author": "irvanni"}</pre>
+    <pre id="response">{"size": <?php echo rand(10,100); ?>, "author": "irvanni"}</pre>
 </body>
 </html>

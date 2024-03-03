@@ -192,7 +192,7 @@ main {
     z-index: 50;
 }
 
-#background_blurred.add_main_dir {
+#background_blurred.secondary {
     z-index: 8;
 }
 
@@ -891,6 +891,12 @@ article .fa-file, article .fa-file-text {
         min-width: calc(100% - 40px);
         /* background-color: blue; */
     }
+
+    article.editor{
+        /* height: calc(100% - 20px); */
+        min-width: calc(100% - 40px);
+    }
+
 }
 
 @media screen and (max-width: 425px) {
@@ -1036,4 +1042,166 @@ article .fa-file, article .fa-file-text {
     position: relative;
     height: calc(100% - 30px);
     overflow: auto;
+}
+
+#editor {
+	position: absolute;
+	left: 0;
+	/* top: 30px; */
+	width: calc(100% - 0px);
+	height: calc(100% - 80px);
+	margin: 0;
+	padding-top: 10px;
+	overflow: hidden;
+    background-color: #1e1e1e;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+}
+
+article.editor{
+    height: calc(100% - 20px);
+    width: calc(100% - 90px);
+}
+
+#editor_navbar{
+    color: white;
+    background-color: #1e1e1e;
+    border-radius: 20px 20px 0 0;
+    padding: 10px;
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#editor_navbar ::-webkit-scrollbar{
+    height: 5px;
+}
+
+#editor_navbar .editor_navbar_btn{
+    color: white;
+    background-color: transparent;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255, .4);
+    font-weight: bold;
+    transition: .5s;
+    margin: 5px 10px 0 10px;
+}
+
+#editor_navbar .editor_navbar_btn:hover{
+    cursor: pointer;
+    border: 2px solid rgb(255, 255, 255, .7);
+    transform: scale(1.1);
+}
+
+#editor_navbar #languages{
+    color: white;
+    background-color: transparent;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255, .4);
+    font-weight: bold;
+    transition: .5s;
+    margin: 5px 10px 0 10px;
+}
+
+#editor_navbar #languages:hover{
+    cursor: pointer;
+    border: 2px solid rgb(255, 255, 255, .7);
+    transform: scale(1.02);
+}
+
+#editor_navbar #languages option{
+    font-weight: bold;
+    background-color: #1e1e1e;
+}
+
+#editor_navbar #filename{
+    overflow-x: auto;
+    max-width: 150px;
+    display: inline-block;
+}
+
+#insertFileName{
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(255, 255, 255, .7);
+    z-index: 9;
+    width: 20%;
+    height: 30%;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px 1px 10px 5px white;
+    display: grid;
+    place-items: center;
+}
+
+.open{
+    animation: 1s slideDown forwards;
+}
+
+@keyframes slideDown {
+    100%{
+        top: 7%;
+    }
+}
+
+.close{
+    animation: 1s slideUp forwards;
+}
+
+@keyframes slideUp {
+    100%{
+        top: -100%;
+    }
+}
+
+#insertFileName input{
+    outline: none;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+    width: 80%;
+    font-size: large;
+}
+
+#insertFileName .responses{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#insertFileName .responses button{
+    width: 45%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid white;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+}
+
+#insertFileName .responses button:hover{
+    cursor: pointer;
+    
+}
+
+#insertFileName .responses button:nth-child(1){
+    background-color: rgb(255, 0, 0, .7);
+}
+
+#insertFileName .responses button:nth-child(1):hover{
+    background-color: rgb(255, 0, 0, .5);
+}
+
+#insertFileName .responses button:nth-child(2){
+    background-color: rgba(0, 0, 255, 0.6);
+}
+
+#insertFileName .responses button:nth-child(2):hover{
+    background-color: rgba(0, 0, 255, 0.4);
 }

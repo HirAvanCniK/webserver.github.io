@@ -16,7 +16,7 @@
     <canvas class="bg"></canvas>
     <main>
         <div id="background_blurred" class="all hidden"></div>
-        <div id="background_blurred" class="add_main_dir hidden"></div>
+        <div id="background_blurred" class="secondary hidden"></div>
         <form method="POST" id="add_main_dir" class="hidden">
             <i class="fa-solid fa-circle-xmark close" onclick="add_main_dir()"></i>
             <br><br>

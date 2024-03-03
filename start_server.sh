@@ -5,4 +5,4 @@ rm package-lock.json
 rm terminalInstance.txt
 touch terminalInstance.txt
 
-npm install && php -S localhost:8075
+npm install && php -S localhost:50010
