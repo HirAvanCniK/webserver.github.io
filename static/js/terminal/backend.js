@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 var os = require('os');
 var pty = require('node-pty');
 
-const wss = new WebSocket.Server({ port: 6080 });
+const wws = new WebSocket.Server({ port: 20081 });
 
 console.log("Socket is up and running...");
 
@@ -15,7 +15,7 @@ var ptyProcess = pty.spawn(shell, [], {
     cols: 10000
 });
 
-wss.on('connection', ws => {
+wws.on('connection', ws => {
     console.log("New session");
 
     // Catch incoming request

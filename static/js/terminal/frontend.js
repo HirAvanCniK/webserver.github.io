@@ -1,6 +1,6 @@
 
-const SERVER = "0.tcp.eu.ngrok.io";
-const PORT = 18213;
+const SERVER = location.hostname;
+const PORT = parseInt(location.port)+1;
 const socket = new WebSocket(`ws://${SERVER}:${PORT}`);
 socket.onmessage = (event) => {
     term.write(event.data);

@@ -57,9 +57,10 @@
         <article>
             <!-- Instance status -->
             <?php
-                if(strcmp('', file_get_contents('terminalInstance.txt')) == 0){
+                $log_file = "terminalInstance.txt";
+                if(strcmp('', file_get_contents("$log_file")) == 0){
                     echo '<i id="instanceStatus" class="off"></i>';
-                }elseif(strcmp('error', file_get_contents('terminalInstance.txt')) == 0){
+                }elseif(strcmp('error', file_get_contents("$log_file")) == 0){
                     echo '<i id="instanceStatus" class="error"></i>';
                 }else{
                     echo '<i id="instanceStatus" class="on"></i>';
@@ -73,8 +74,9 @@
                         $os = strtoupper(PHP_OS);
                         return substr($os, 0, 3) == "WIN";
                     }
+                    $log_file = "terminalInstance.txt";
                     if(isset($_POST['instance'])){
-                        if(strcmp('', file_get_contents('terminalInstance.txt')) == 0){ // L'instanza del terminale non è aperta
+                        if(strcmp('', file_get_contents("$log_file")) == 0){ // L'instanza del terminale non è aperta
                             $backend_path = './static/js/terminal/backend.js';
                             if(isWindows()){
                                 exec("powershell -Command \"Start-Process -FilePath \"node\" -ArgumentList \"$backend_path\" -PassThru | Select-Object -ExpandProperty Id\"", $pid, $exit_code);
@@ -83,25 +85,24 @@
                                 $pid = !empty($output) ? (int)$output[0] : 0;
                             }
                             if($exit_code != 0){
-                                file_put_contents('terminalInstance.txt', 'error');
+                                file_put_contents("$log_file", 'error');
                             }else{
-                                file_put_contents('terminalInstance.txt', $pid);
+                                file_put_contents("$log_file", $pid);
                             }
                             sleep(3);
-                            header("Refresh:0");
-                        }elseif(strcmp('error', file_get_contents('terminalInstance.txt')) == 0){
-                            file_put_contents('terminalInstance.txt', '');
+                        }elseif(strcmp('error', file_get_contents("$log_file")) == 0){
+                            file_put_contents("$log_file", '');
                         }else{
-                            $pid = file_get_contents('terminalInstance.txt');
+                            $pid = file_get_contents("$log_file");
                             if(isWindows()){
                                 shell_exec("taskkill /f /pid $pid");
                             }else{
                                 shell_exec("kill -9 $pid");
                             }
-                            file_put_contents('terminalInstance.txt', "");
+                            file_put_contents("$log_file", "");
                             sleep(1);
-                            header("Refresh:0");
                         }
+                        header("Refresh:0");
                     }
                 ?>
             </form>
