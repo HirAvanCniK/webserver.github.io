@@ -1,5 +1,6 @@
 <?php
     ob_start();
+    $log_file = "terminalInstance.txt";
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +75,6 @@
                         $os = strtoupper(PHP_OS);
                         return substr($os, 0, 3) == "WIN";
                     }
-                    $log_file = "terminalInstance.txt";
                     if(isset($_POST['instance'])){
                         if(strcmp('', file_get_contents("$log_file")) == 0){ // L'instanza del terminale non è aperta
                             $backend_path = './static/js/terminal/backend.js';
