@@ -1,6 +1,6 @@
 
 const SERVER = location.hostname;
-const PORT = parseInt(location.port)!=NaN ? parseInt(location.port)+1 : 80+1;
+const PORT = parseInt(location.port) ? parseInt(location.port)+1 : 80+1;
 const socket = new WebSocket(`ws://${SERVER}:${PORT}`);
 socket.onmessage = (event) => {
     term.write(event.data);
