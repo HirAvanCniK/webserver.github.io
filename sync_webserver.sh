@@ -20,7 +20,7 @@ function check_udates() {
   if [ "$SHA1_ONLINE" != "$SHA1_LOCAL" -o "$exit_code" != "0" ]; then
     echo "Updates available..."
     git pull origin main
-    $exit_code=$(echo $?)
+    exit_code=$(echo $?)
     if [ "$exit_code" != "0" ]; then
       clone
     else
