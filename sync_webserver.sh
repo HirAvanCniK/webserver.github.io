@@ -17,7 +17,7 @@ function check_udates() {
   exit_code=$(echo $?)
   if [ "$SHA1_ONLINE" != "$SHA1_LOCAL" -o $exit_code != 0 ]; then
     echo "Updates available..."
-    git pull origin main
+    git pull --force origin main
     npm install
     chmod -R 777 $DESTINATION
   else
