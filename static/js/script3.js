@@ -32,7 +32,7 @@ if(Istatus == "on"){
     btn_text.textContent = "Stop Instance";
     btn_icon.classList.add("fa-stop");
     message.textContent = "The terminal instance is running.";
-    message.style.color = "rgba(255, 0, 0, 0.6)";
+    message.style.color = "rgba(0, 255, 50, 0.6)";
 }else if(Istatus == "off"){
     hoverElement(btn, "inset 0 0 30px 1px springgreen", "inset 0 0 50px 1px springgreen");
     btn.style.boxShadow = "inset 0 0 50px 1px springgreen";
