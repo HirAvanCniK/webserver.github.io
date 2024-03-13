@@ -1,19 +1,15 @@
 #!/bin/bash
 
-sleep 300
-
 DESTINATION="/var/www/webserver.irvanni.it"
 USERNAME="HirAvanCniK"
 REPOSITORY="webserver.github.io"
 
 cd $DESTINATION
-rm -rf *
-rm -rf .git
-rm -rf .gitignore
+rm -rf * .git .gitignore
 
 git clone https://github.com/$USERNAME/$REPOSITORY.git $DESTINATION
 npm install
-chmod 777 *
+chmod -R 777 $DESTINATION
 
 function check_udates() {
   SHA1_ONLINE=$(git ls-remote https://github.com/$USERNAME/$REPOSITORY.git HEAD | awk '{print $1}')
@@ -23,7 +19,7 @@ function check_udates() {
     echo "Updates available..."
     git pull origin main
     npm install
-    chmod 777 *
+    chmod -R 777 $DESTINATION
   else
     echo "Nice there are not updates!"
   fi
@@ -31,5 +27,5 @@ function check_udates() {
 
 while true; do
   check_udates
-  sleep 60
+  sleep 30
 done
