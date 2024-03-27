@@ -1,0 +1,5 @@
+Commands:
+	sensors | apt install lm-sensors
+	speedtest-cli | apt install speedtest-cli
+	vsftpd | apt install vsftpd
+

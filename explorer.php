@@ -1,3 +1,15 @@
+<?php
+	ob_start();
+    session_start();
+    require_once('./includes/config.php');
+    if(!isset($_SESSION['user'])){
+        header('Location: /login.php');
+    }
+    if(!ssh_access()){
+        header('Location: /settings.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

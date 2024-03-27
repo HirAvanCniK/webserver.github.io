@@ -1,3 +1,8 @@
+<?php
+	ob_start();
+	require_once('./includes/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +40,10 @@
                   name="re_password" required />
                 <span toggle="#password-field2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
               </div>
+			  <div class="form-group">
+                <input id="email-field" type="email" class="form-control" placeholder="Email"
+                  name="email" required />
+              </div>
               <div class="form-group">
                 <button type="submit" class="form-control btn btn-primary submit px-3">
                   Sign up
@@ -42,8 +51,34 @@
               </div>
               <div class="form-group d-md-flex"></div>
 			  <?php
-				if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['re_password'])){
-					
+				if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['re_password']) && isset($_POST['email'])){
+					if(preg_match($REGEX_USERNAME, $_POST['username']) && preg_match($REGEX_PASSWORD, $_POST['password']) && preg_match($REGEX_EMAIL, $_POST['email']) && strcmp($_POST['password'], $_POST['re_password']) == 0){
+						$db = connect();
+						$array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?) OR HEX(email) = (?)", 'ss', array($_POST['username'], $_POST['email']));
+						if($array !== false){
+							if(count($array) == 0){
+								$output = exec_query($db, "INSERT INTO users (username, password, email) VALUES (?, ?, ?)", 'sss', array($_POST['username'], $_POST['password'], $_POST['email']));
+								if($output !== false){
+									$array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?) AND HEX(password) = HEX(?) AND HEX(email) = HEX(?)", 'sss', array($_POST['username'], $_POST['password'], $_POST['email']));
+									if($array !== false){
+										session_start();
+										$_SESSION['user'] = $array[0];
+										header('Location: /');
+									}else{
+										err(4);
+									}
+								}else{
+									err(4);
+								}
+							}else{
+								err(3);
+							}
+						}else{
+							err(4);
+						}
+					}else{
+						err(1);
+					}
 				}
 			  ?>
 			</form>

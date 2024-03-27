@@ -1,3 +1,15 @@
+<?php
+	ob_start();
+    session_start();
+    require_once('./includes/config.php');
+    if(!isset($_SESSION['user'])){
+        header('Location: /login.php');
+    }
+    if(!ssh_access()){
+        header('Location: /settings.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.46.0/min/vs/editor/editor.main.js" integrity="sha512-NWwYS96/xFIveKsE3xEB9PKQfNmjW3luEoIfZxiap7ol7LBiYduUNbs0OovQGDlb8gk6/z+TdqJjrqo/ufcuUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.46.0/min/vs/editor/editor.main.min.css" integrity="sha512-Q/ZIaWsdJBTBAkGTDqXN6AhYSD7+QEa+ccWJLsFTbayZWiv+Vi/BUGfm8E/4k/AV9Wvpci22/QSl56214Mv5NQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.46.0/min/vs/loader.min.js" integrity="sha512-ZG31AN9z/CQD1YDDAK4RUAvogwbJHv6bHrumrnMLzdCrVu4HeAqrUX7Jsal/cbUwXGfaMUNmQU04tQ8XXl5Znw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./static/js/page_exit.js"></script>
 </head>
 <body id="bg">
     <canvas class="bg"></canvas>

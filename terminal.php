@@ -1,6 +1,14 @@
 <?php
     ob_start();
     $log_file = "terminalInstance.txt";
+    session_start();
+    require_once('./includes/config.php');
+    if(!isset($_SESSION['user'])){
+        header('Location: /login.php');
+    }
+    if(!ssh_access() || !terminal_access()){
+        header('Location: /settings.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +64,12 @@
             </nav>
         </div>
         <article>
+            <?php
+                $terminal_port = $_SESSION['user']['terminal_port'];
+                $server = $_SESSION['user']['server'];
+                echo "<label id=\"terminal_port\" style=\"display:none;\">$terminal_port</label>";
+                echo "<label id=\"server\" style=\"display:none;\">$server</label>";
+            ?>
             <!-- Instance status -->
             <?php
                 $log_file = "terminalInstance.txt";

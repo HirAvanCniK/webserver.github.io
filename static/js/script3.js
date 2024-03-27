@@ -54,4 +54,3 @@ btn.appendChild(btn_text);
 message.style.fontWeight = "bold";
 let terminalMsg = document.getElementById("terminalmsg");
 terminalMsg.appendChild(message);
-

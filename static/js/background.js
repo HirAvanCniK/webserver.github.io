@@ -190,5 +190,28 @@ navbar_pc.addEventListener("mouseover", () => {
 });
 
 navbar_pc.addEventListener("mouseout", () => {
-    bb.hide(); 
+    bb.hide();
 });
+
+function specialAlert(msg){
+    let al = document.createElement("div");
+    al.className = "specialAlert";
+    document.body.appendChild(al);
+    let h1 = document.createElement("h1");
+    h1.textContent = msg;
+    al.appendChild(h1);
+    let btn1 = document.createElement("button");
+    let btn2 = document.createElement("button");
+    let footer = document.createElement("footer");
+    footer.appendChild(btn1);
+    footer.appendChild(btn2);
+    btn1.textContent = "Reload page";
+    btn2.textContent = "Ok";
+    al.appendChild(footer);
+    btn1.style.backgroundColor = "rgba(255, 0, 0, .6)";
+    btn1.style.boxShadow = "0 0 5px 2px rgba(255, 0, 0, .6)";
+    btn2.style.backgroundColor = "rgba(0, 0, 255, .6)";
+    btn2.style.boxShadow = "0 0 5px 2px rgba(0, 0, 255, .6)";
+    btn1.setAttribute("onclick", "location.reload();");
+    btn2.setAttribute("onclick", "this.parentNode.parentNode.className = '';");
+}

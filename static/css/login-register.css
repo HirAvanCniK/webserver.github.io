@@ -11838,7 +11838,6 @@ h5,
   line-height: 1.5;
   font-weight: 400;
   font-family: "Lato", Arial, sans-serif;
-  color: #000;
 }
 
 .bg-primary {
@@ -11874,8 +11873,8 @@ h5,
 }
 
 .login-wrap h3 {
-  font-weight: 300;
-  color: #fff;
+  /* font-weight: 300; */
+  /* color: #fff; */
 }
 
 .login-wrap .social {
@@ -12075,4 +12074,13 @@ textarea.form-control {
   border: 1px solid transparent;
   background: #fbceb5;
   color: #fff;
+}
+
+.error{
+  font-size: 100%;
+  color: red;
+  font-weight: bold;
+  background-color: rgb(255, 0, 0, .2);
+  text-align: center;
+  border-radius: 50px;
 }

@@ -1,3 +1,15 @@
+<?php
+	ob_start();
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('Location: /login.php');
+    }
+    require_once('./includes/config.php');
+    if(!ssh_access()){
+        header('Location: /settings.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +21,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <link href="https://fonts.cdnfonts.com/css/space-mono" rel="stylesheet">
+    <?php
+        $ssh = ssh_connect();
+        $home_directory = $_SESSION['user']['webserver_home_directory'];
+        if(!$ssh){
+            $ssh_server = $_SESSION['user']['server'];
+            $ssh_port = $_SESSION['user']['ssh_port'];
+            echo "<script type='text/javascript'>alert(`Couldn't connect to server '$ssh_server' on port '$ssh_port'`)</script>";
+            $services = array();
+            $main_directories = array();
+        }else{
+            ssh_exec($ssh, "cd $home_directory");
+        }
+    ?>
 </head>
 <body id="bg">
     <canvas class="bg"></canvas>
@@ -52,6 +77,13 @@
             <input type="text" name="new_main_dir_name" id="main_dir_name">
             <br><br>
             <button type="submit" id="btn-create-main-dir">Create a Main Directory</button>
+            <?php
+                if(isset($_POST['new_main_dir_hexcolor']) && isset($_POST['new_main_dir_icon']) && isset($_POST['new_main_dir_name'])){
+                    $db = connect();
+                    exec_query($db, "INSERT INTO main_directories (username, main_path, color, icon) VALUES (?, ?, ?, ?)", "ssss", array($_SESSION['user']['username'], $home_directory.$_POST['new_main_dir_name'], $_POST['new_main_dir_hexcolor'], $_POST['new_main_dir_icon']));
+                    ssh_exec($ssh, "mkdir $home_directory".$_POST['new_main_dir_name']);
+                }
+            ?>
         </form>
         <div id="navbar_pc">
             <nav class="navbar top">
@@ -83,51 +115,78 @@
         <article>
             <div id="main_directories">
                 <h1 class="title">Main directories</h1>
-                <div class="main_dir" style="box-shadow: 0 0 10px 1px goldenrod;" onclick="location.href='explorer.php?path=/Photos/'">
-                    <i class="main_dir_icon fa-solid fa-photo-film" style="color: goldenrod;"></i>
-                    <b>
-                        <i class="main_dir_title">Photos</i>
-                        <br><br>
-                        <i class="main_dir_elements">16 Elements</i>
-                        •
-                        <i class="main_dir_weight">2GB</i>
-                    </b>
-                    <hr style="border-top: 2px solid goldenrod;">
-                </div>
-                <div class="main_dir" style="box-shadow: 0 0 10px 1px springgreen;" onclick="location.href='explorer.php?path=/Games/'">
-                    <i class="main_dir_icon fa-solid fa-gamepad" style="color: springgreen;"></i>
-                    <b>
-                        <i class="main_dir_title">Games</i>
-                        <br><br>
-                        <i class="main_dir_elements">5 Elements</i>
-                        •
-                        <i class="main_dir_weight">11GB</i>
-                    </b>
-                    <hr style="border-top: 2px solid springgreen;">
-                </div>
-                <div class="main_dir" style="box-shadow: 0 0 10px 1px white;" onclick="add_main_dir()">
-                    <i class="fa-solid fa-plus add-icon" style="color:white;"></i>
+                <div>
+                    <?php
+                        $db = connect();
+                        $array = exec_query_catch_output($db, "SELECT * FROM main_directories WHERE HEX(username) = HEX(?)", "s", array($_SESSION['user']['username']));
+                        if($array){
+                            foreach($array as $row){
+                                $path = $row['main_path'];
+                                $color = $row['color'];
+                                $icon = $row['icon'];
+                                $name = basename($path);
+                                $numberOfElements = intval(ssh_exec_catch_output($ssh, "ls -l $path | wc -l"))-1;
+                                $size = explode("\t", ssh_exec_catch_output($ssh, "du -sh $path"))[0] . "B";
+                                echo "<div class='main_dir' style='box-shadow: 0 0 10px 1px $color;' onclick='location.href=`explorer.php?path=$path`'>";
+                                echo    "<i class='main_dir_icon fa-solid $icon' style='color: $color;'></i>";
+                                echo    "<b>";
+                                echo        "<i class='main_dir_title'>$name</i>";
+                                echo        "<br><br>";
+                                echo        "<i class='main_dir_elements'>$numberOfElements Elements</i>";
+                                echo        "\t•\t";
+                                echo        "<i class='main_dir_weight'>$size</i>";
+                                echo    "</b>";
+                                echo    "<hr style='border-top: 2px solid $color;'>";
+                                echo "</div>";
+                            }
+                        }
+                    ?>
+                    <!-- <div class="main_dir" style="box-shadow: 0 0 10px 1px goldenrod;" onclick="location.href='explorer.php?path=/Photos/'">
+                        <i class="main_dir_icon fa-solid fa-photo-film" style="color: goldenrod;"></i>
+                        <b>
+                            <i class="main_dir_title">Photos</i>
+                            <br><br>
+                            <i class="main_dir_elements">16 Elements</i>
+                            •
+                            <i class="main_dir_weight">2GB</i>
+                        </b>
+                        <hr style="border-top: 2px solid goldenrod;">
+                    </div>
+                    <div class="main_dir" style="box-shadow: 0 0 10px 1px springgreen;" onclick="location.href='explorer.php?path=/Games/'">
+                        <i class="main_dir_icon fa-solid fa-gamepad" style="color: springgreen;"></i>
+                        <b>
+                            <i class="main_dir_title">Games</i>
+                            <br><br>
+                            <i class="main_dir_elements">5 Elements</i>
+                            •
+                            <i class="main_dir_weight">11GB</i>
+                        </b>
+                        <hr style="border-top: 2px solid springgreen;">
+                    </div> -->
+                    <div class="main_dir" style="box-shadow: 0 0 10px 1px white;" onclick="add_main_dir()">
+                        <i class="fa-solid fa-plus add-icon" style="color:white;"></i>
+                    </div>
                 </div>
             </div>
             <div id="services">
                 <h1 class="title">Services status</h1>
-                <div class="service">
-                    <b class="status_on_off"></b>
-                    <h3 class="serviceName">Apache2</h3>
-                    <ul>
-                        <li>Status <b class="status_on_off_text">Online</b></li>
-                        <li>Version <b>1.0.4</b></li>
-                        <li>Port(s) <b>7010</b></li>
-                    </ul>
-                </div>
-                <div class="service">
-                    <b class="status_on_off"></b>
-                    <h3 class="serviceName">MySQL</h3>
-                    <ul>
-                        <li>Status <b class="status_on_off_text">Offline</b></li>
-                        <li>Version <b>2.0.8</b></li>
-                        <li>Port(s) <b>8185</b></li>
-                    </ul>
+                <div id="services2">
+                    <?php
+                        $output = base64_encode(ssh_exec_catch_output($ssh, "systemctl list-units --type=service"));
+                        $services = json_decode(str_replace("'", '"', exec("$PYTHON get_all_services.py $output")), true);
+                        foreach($services as $name => $arr){
+                            $state = $arr['sub'];
+                            $description = $arr['description'];
+                            echo '<div class="service">';
+                            echo    '<b class="status_on_off"></b>';
+                            echo    "<h3 class='serviceName'>$name</h3>";
+                            echo    "<ul>";
+                            echo        "<li>Status <b class='status_on_off_text'>$state</b></li>";
+                            echo        "<li>Description <b class='description'>$description</b></li>";
+                            echo    "</ul>";
+                            echo "</div>";
+                        }
+                    ?>
                 </div>
             </div>
             <div id="dashboard">
@@ -145,23 +204,36 @@
                 <div class="db_element cpu">
                     <h2>CPU</h2>
                     <ul>
-                        <li>Temperature <b>67</b>°C</li>
-                        <li>Speed <b>4</b>GHz</li>
-                        <li>Usage <b>7</b>%</li>
+                        <li>Temperature <b><?php echo trim(ssh_exec_catch_output($ssh, "sensors | grep Core | awk -F' ' '{print $3}' | awk '{sum += $1; count++} END {print sum / count}'")) ?></b>°C</li>
+                        <li>Speed <b><?php echo trim(ssh_exec_catch_output($ssh, "grep -m 1 \"cpu MHz\" /proc/cpuinfo | awk '{print $4}'")) ?></b> MHz</li>
+                        <li>Usage <b><?php echo trim(ssh_exec_catch_output($ssh, "top -b -n 1 | tail -n +8 | awk -F' ' '{print $9}' | awk '{sum += $1} END {print sum}'")) ?></b>%</li>
                     </ul>
                 </div>
                 <div class="db_element ram">
                     <h2>RAM</h2>
                     <ul>
-                        <li>Speed <b>2</b>GHz</li>
-                        <li>Usage <b>12</b>%</li>
+                        <li>Maximum <b><?php echo trim(ssh_exec_catch_output($ssh, "free -h | tail -n +2 | head -n 1 | awk -F' ' '{print $2}'")) ?></b></li>
+                        <li>Usage <b><?php echo trim(ssh_exec_catch_output($ssh, "top -b -n 1 | tail -n +8 | awk -F' ' '{print $10}' | awk '{sum += $1} END {print sum}'")) ?></b>%</li>
                     </ul>
                 </div>
                 <div class="db_element connection">
+                    <?php
+                        if($_SESSION['user']['get_network_information'] != null && strcmp($_SESSION['user']['get_network_information'], "on") == 0){
+                            $network = explode("\n", ssh_exec_catch_output($ssh, "speedtest-cli --simple"));
+                            $network_ping = explode(" ", $network[0]);
+                            $network_download = explode(" ", $network[1]);
+                            $network_upload = explode(" ", $network[2]);
+                        }else{
+                            $network_ping = array("", "N/A", "");
+                            $network_download = array("", "N/A", "");
+                            $network_upload = array("", "N/A", "");
+                        }
+                    ?>
                     <h2>Network</h2>
                     <ul>
-                        <li>Download <b>20</b>MB</li>
-                        <li>Upload <b>5</b>MB</li>
+                        <li>Ping <b><?php echo $network_ping[1] ?></b> <?php echo $network_ping[2] ?></li>
+                        <li>Download <b><?php echo $network_download[1] ?></b> <?php echo $network_download[2] ?></li>
+                        <li>Upload <b><?php echo $network_upload[1] ?></b> <?php echo $network_upload[2] ?></li>
                     </ul>
                 </div>
             </div>

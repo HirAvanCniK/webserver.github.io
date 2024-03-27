@@ -1,3 +1,8 @@
+<?php
+	ob_start();
+	require_once('./includes/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +43,23 @@
 			  <div class="form-group d-md-flex"></div>
 			  <?php
 				if(isset($_POST['username']) && isset($_POST['password'])){
-					
+					if(preg_match($REGEX_USERNAME, $_POST['username']) && preg_match($REGEX_PASSWORD, $_POST['password'])){
+						$db = connect();
+						$array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?) AND HEX(password) = HEX(?)", 'ss', array($_POST['username'], $_POST['password']));
+						if($array !== false){
+							if(count($array) == 1){
+								session_start();
+								$_SESSION['user'] = $array[0];
+								header('Location: /');
+							}else{
+								err(2);
+							}
+						}else{
+							err(4);
+						}
+					}else{
+						err(1);
+					}
 				}
 			  ?>
 			</form>

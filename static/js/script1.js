@@ -98,17 +98,20 @@ if(percentageComplete>=0 && percentageComplete<=40){
 }
 
 // Services
-var services = document.getElementById('services');
+var services = document.getElementById('services2');
 services.childNodes.forEach(function (child) {
     if(child.tagName == "DIV"){
         var text = child.getElementsByClassName('status_on_off_text')[0].textContent;
         var icon = child.getElementsByClassName('status_on_off')[0];
-        if(text == "Online"){
+        if(text == "running"){
             icon.textContent = "🟢";
-            child.style = "box-shadow: 0px 0px 30px 3px springgreen;";
-        }else if(text == "Offline"){
+            child.style = "box-shadow: 0px 0px 15px 3px springgreen;";
+        }else if(text == "exited"){
             icon.textContent = "🔴";
-            child.style = "box-shadow: 0px 0px 30px 3px #ee3530;";
+            child.style = "box-shadow: 0px 0px 15px 3px #ee3530;";
+        }else if(text == "start" || text == "auto-restart"){
+            icon.textContent = "🟠";
+            child.style = "box-shadow: 0px 0px 15px 3px #ff6723;";
         }
     }
 })
