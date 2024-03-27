@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync webserver repository
+
+[Service]
+Restart=on-failure
+RestartSec=5
+Type=oneshot
+ExecStart=/usr/local/bin/sync_webserver.sh
+User=root
+
+[Install]
+WantedBy=multi-user.target
