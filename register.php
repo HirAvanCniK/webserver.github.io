@@ -15,6 +15,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
   <link rel="stylesheet" href="./static/css/login-register.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body class="img js-fullheight" style="

@@ -16,11 +16,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <link href="https://fonts.cdnfonts.com/css/space-mono" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body id="bg">
     <canvas class="bg"></canvas>
