@@ -1,2 +1,2 @@
 RewriteEngine On
-Redirect /includes/config.php /
+Redirect 301 /includes/config.php /
