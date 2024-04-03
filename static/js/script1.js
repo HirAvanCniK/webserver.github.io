@@ -109,7 +109,7 @@ services.childNodes.forEach(function (child) {
         }else if(text == "exited"){
             icon.textContent = "🔴";
             child.style = "box-shadow: 0px 0px 15px 3px #ee3530;";
-        }else if(text == "start" || text == "auto-restart"){
+        }else{
             icon.textContent = "🟠";
             child.style = "box-shadow: 0px 0px 15px 3px #ff6723;";
         }
