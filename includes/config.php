@@ -6,7 +6,7 @@
     $PYTHON = "py";
 
     function connect(){
-        return new mysqli("localhost", "root", "irvanni", "webserver"); // Hostname, Username, Password, Database
+        return new mysqli("localhost", "irvanni", "irvanni", "webserver"); // Hostname, Username, Password, Database
     }
 
     function err($p){
