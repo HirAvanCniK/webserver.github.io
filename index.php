@@ -28,8 +28,7 @@
             $ssh_server = $_SESSION['user']['server'];
             $ssh_port = $_SESSION['user']['ssh_port'];
             echo "<script type='text/javascript'>alert(`Couldn't connect to server '$ssh_server' on port '$ssh_port'`)</script>";
-            $services = array();
-            $main_directories = array();
+            die();
         }else{
             ssh_exec($ssh, "cd $home_directory");
         }

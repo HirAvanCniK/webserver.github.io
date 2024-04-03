@@ -11,25 +11,7 @@ function edit(e){
     }
 }
 
-let settings = [];
-
 let profile = document.getElementById("profile");
-
-for(let element of profile.children){
-    if(element.className == "setting"){
-        let inputElement = element.getElementsByClassName("value")[0].getElementsByTagName("input")[0];
-        settings[inputElement.name] = inputElement.value;
-    }
-}
-
-function reset(){
-    for(let element of profile.children){
-        if(element.className == "setting"){
-            let inputElement = element.getElementsByClassName("value")[0].getElementsByTagName("input")[0];
-            inputElement.value = settings[inputElement.name];
-        }
-    }
-}
 
 function apply(){
     for(let element of profile.children){

@@ -24,11 +24,8 @@ CREATE TABLE main_directories (
     icon TEXT
 );
 
-
 CREATE TABLE favorites (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     username TEXT,
-    path TEXT,
-    color TEXT,
-    icon TEXT
+    path TEXT
 );

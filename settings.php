@@ -65,7 +65,7 @@
                         <br>
                         <code id="download_code">wget
                             <?php
-                                echo $_SERVER['HTTP_REFERER'] . "includes/backend.js -O ";
+                                echo $_SERVER['HTTP_HOST'] . "/" . "includes/backend.js -O ";
                                 if($_SESSION['user']['webserver_home_directory']){
                                     echo trim($_SESSION['user']['webserver_home_directory']);
                                 }else{
@@ -95,6 +95,17 @@
                     <div class="value">
                         <i onclick="edit(this)" class="fa-solid fa-pen edit"></i>
                         <input type="email" name="email" value="<?php echo $_SESSION['user']['email']; ?>" disabled>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div>
+                        <span class="title">Webserver Home directory</span>
+                        <br>
+                        <span class="description">The path of the home directory of your webserver</span>
+                    </div>
+                    <div class="value">
+                        <i onclick="edit(this)" class="fa-solid fa-pen edit"></i>
+                        <input type="text" name="webserver_home_directory" value="<?php echo $_SESSION['user']['webserver_home_directory']; ?>" disabled>
                     </div>
                 </div>
                 <div class="setting">
@@ -169,69 +180,28 @@
                         <input type="number" min="0" max="65535" name="terminal_port" value="<?php echo $_SESSION['user']['terminal_port']; ?>" disabled>
                     </div>
                 </div>
-                <div class="setting">
-                    <div>
-                        <span class="title">Terminal executable file path</span>
-                        <br>
-                        <span class="description">The path of node executable file of terminal</span>
-                    </div>
-                    <div class="value">
-                        <i onclick="edit(this)" class="fa-solid fa-pen edit"></i>
-                        <input type="text" name="terminal_backend_path" value="<?php echo $_SESSION['user']['terminal_backend_path']; ?>" disabled>
-                    </div>
-                </div>
-                <div class="setting">
-                    <div>
-                        <span class="title">Terminal log file path</span>
-                        <br>
-                        <span class="description">The path of log file of terminal</span>
-                    </div>
-                    <div class="value">
-                        <i onclick="edit(this)" class="fa-solid fa-pen edit"></i>
-                        <input type="text" name="terminal_instance_path" value="<?php echo $_SESSION['user']['terminal_instance_path']; ?>" disabled>
-                    </div>
-                </div>
-                <div class="setting">
-                    <div>
-                        <span class="title">Webserver Home directory</span>
-                        <br>
-                        <span class="description">The path of the home directory of your webserver</span>
-                    </div>
-                    <div class="value">
-                        <i onclick="edit(this)" class="fa-solid fa-pen edit"></i>
-                        <input type="text" name="webserver_home_directory" value="<?php echo $_SESSION['user']['webserver_home_directory']; ?>" disabled>
-                    </div>
-                </div>
                 <footer>
-                    <a onclick="reset()" class="btn reset">Reset</a>
+                    <a onclick="location.reload();" class="btn reset">Reset</a>
                     <button type="submit" class="btn apply" onclick="apply()">Apply</button>
                 </footer>
                 <?php
                     $db = connect();
-                    if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['server']) && isset($_POST['ssh_port']) && isset($_POST['ssh_username']) && isset($_POST['ssh_password']) && isset($_POST['terminal_port']) && isset($_POST['terminal_backend_path']) && isset($_POST['terminal_instance_path']) && isset($_POST['webserver_home_directory'])){
-                        if(!preg_match($REGEX_USERNAME, $_POST['username']) || !preg_match($REGEX_EMAIL, $_POST['email'])){
-                            err(1);
-                        }else{
-                            if(exec_query($db, "UPDATE users SET username = ?  WHERE id = ?", "si", array($_POST['username'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET email = ?  WHERE id = ?", "si", array($_POST['email'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET server = ?  WHERE id = ?", "si", array(strcmp($_POST['server'], "")==0 ? null : $_POST['server'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET ssh_port = ?  WHERE id = ?", "si", array($_POST['ssh_port'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET ssh_username = ?  WHERE id = ?", "si", array(strcmp($_POST['ssh_username'], "")==0 ? null : $_POST['ssh_username'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET ssh_password = ?  WHERE id = ?", "si", array(strcmp($_POST['ssh_password'], "")==0 ? null : $_POST['ssh_password'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET terminal_port = ?  WHERE id = ?", "si", array($_POST['terminal_port'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET terminal_backend_path = ?  WHERE id = ?", "si", array(strcmp($_POST['terminal_backend_path'], "")==0 ? null : $_POST['terminal_backend_path'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET terminal_instance_path = ?  WHERE id = ?", "si", array(strcmp($_POST['terminal_instance_path'], "")==0 ? null : $_POST['terminal_instance_path'], $_SESSION['user']['id'])) === false) err(4);
-                            else if(exec_query($db, "UPDATE users SET webserver_home_directory = ?  WHERE id = ?", "si", array(strcmp($_POST['webserver_home_directory'], "")==0 ? null : $_POST['webserver_home_directory'], $_SESSION['user']['id'])) === false) err(4);
-                            if(isset($_POST['get_network_information']) && strcmp($_POST['get_network_information'], "on") == 0){
-                                if(exec_query($db, "UPDATE users SET get_network_information = ?  WHERE id = ?", "si", array('on', $_SESSION['user']['id'])) === false) err(4);
+                    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                        if(
+                            isset($_POST['username']) && preg_match($REGEX_USERNAME, $_POST['username']) &&
+                            isset($_POST['email']) && preg_match($REGEX_EMAIL, $_POST['email']) &&
+                            isset($_POST['server']) && isset($_POST['ssh_port']) && isset($_POST['ssh_username']) &&
+                            isset($_POST['ssh_password']) && isset($_POST['webserver_home_directory']) && isset($_POST['terminal_port'])
+                        ){
+                            if(isset($_POST['get_network_information']) && $_POST['get_network_information'] === 'on'){
+                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = 'on' WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                            }else{
+                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ? WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
                             }
-                            else{
-                                if(exec_query($db, "UPDATE users SET get_network_information = null  WHERE id = ?", "i", array($_SESSION['user']['id'])) === false) err(4);
-                            }
-                            $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
-                            $_SESSION['user'] = $array[0];
-                            header('Location: /settings.php');
                         }
+                        $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
+                        $_SESSION['user'] = $array[0];
+                        header('Location: /settings.php');
                     }
                 ?>
             </form>
