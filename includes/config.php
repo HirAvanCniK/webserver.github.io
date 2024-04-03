@@ -3,7 +3,7 @@
     $REGEX_PASSWORD = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])[A-Za-z0-9!@#$%^&*()]{8,}$/i";
     $REGEX_EMAIL = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i";
 
-    $PYTHON = "py";
+    $PYTHON = "python3";
 
     function connect(){
         return new mysqli("localhost", "irvanni", "irvanni", "webserver"); // Hostname, Username, Password, Database
