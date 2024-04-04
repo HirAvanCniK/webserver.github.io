@@ -63,8 +63,9 @@
                         <br>
                         <i>or run this in your webserver</i>
                         <br>
-                        <code id="download_code">wget
+                        <code id="download_code">
                             <?php
+                                echo "mkdir " . $_SESSION['user']['webserver_home_directory'] . "terminal ; wget ";
                                 echo $_SERVER['HTTP_HOST'] . "/" . "includes/backend.js -O ";
                                 if($_SESSION['user']['webserver_home_directory']){
                                     echo trim($_SESSION['user']['webserver_home_directory']);
@@ -193,11 +194,20 @@
                             isset($_POST['server']) && isset($_POST['ssh_port']) && isset($_POST['ssh_username']) &&
                             isset($_POST['ssh_password']) && isset($_POST['webserver_home_directory']) && isset($_POST['terminal_port'])
                         ){
-                            if(isset($_POST['get_network_information']) && $_POST['get_network_information'] === 'on'){
-                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = 'on' WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                            if(gethostbyname($_POST['server']) !== '127.0.0.1'){
+                                if(substr($_POST['webserver_home_directory'], -1) !== "/"){
+                                    $_POST['webserver_home_directory'] = $_POST['webserver_home_directory'] . "/";
+                                }
+                                if(isset($_POST['get_network_information']) && $_POST['get_network_information'] === 'on'){
+                                    exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = 'on' WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                                }else{
+                                    exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = null WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                                }
                             }else{
-                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = null WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                                err(1);
                             }
+                        }else{
+                            err(1);
                         }
                         $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
                         $_SESSION['user'] = $array[0];
