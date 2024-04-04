@@ -196,7 +196,7 @@
                             if(isset($_POST['get_network_information']) && $_POST['get_network_information'] === 'on'){
                                 exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = 'on' WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
                             }else{
-                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ? WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
+                                exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = null WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
                             }
                         }
                         $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
