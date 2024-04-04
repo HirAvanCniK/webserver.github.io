@@ -84,7 +84,7 @@
     }
 
     function terminal_access(){
-        return isset($_SESSION['user']['terminal_port']) && isset($_SESSION['user']['terminal_backand_path']) && isset($_SESSION['user']['terminal_instance_path']);
+        return isset($_SESSION['user']['terminal_port']) && isset($_SESSION['user']['webserver_home_directory']);
     }
 
     // https://www.w3schools.com/php/php_ref_ftp.asp

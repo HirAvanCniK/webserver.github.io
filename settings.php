@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <link href="https://fonts.cdnfonts.com/css/space-mono" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="./static/js/page_exit.js"></script>
 </head>
 <body id="bg">
     <canvas class="bg"></canvas>
@@ -203,15 +204,15 @@
                                 }else{
                                     exec_query($db, "UPDATE users SET username = ?, email = ?, server = ?, ssh_port = ?, ssh_username = ?, ssh_password = ?, webserver_home_directory = ?, terminal_port = ?, get_network_information = null WHERE id = ?", "sssisssii", array($_POST['username'], $_POST['email'], $_POST['server'], $_POST['ssh_port'], $_POST['ssh_username'], $_POST['ssh_password'], $_POST['webserver_home_directory'], $_POST['terminal_port'], $_SESSION['user']['id']));
                                 }
+                                $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
+                                $_SESSION['user'] = $array[0];
+                                header('Location: /settings.php');        
                             }else{
                                 err(1);
                             }
                         }else{
                             err(1);
                         }
-                        $array = exec_query_catch_output($db, "SELECT * FROM users WHERE HEX(username) = HEX(?)", 's', array($_POST['username']));
-                        $_SESSION['user'] = $array[0];
-                        header('Location: /settings.php');
                     }
                 ?>
             </form>
@@ -219,6 +220,5 @@
     </main>
     <script type="text/javascript" src="static/js/background.js"></script>
     <script src="./static/js/script6.js"></script>
-    <!-- <script src="./static/js/page_exit.js"></script> -->
 </body>
 </html>
